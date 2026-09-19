@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title> Title in the tab</title>
+
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+    </head>
+
+<body>
+      <h1>Welcome to my survey!</h1>
+      <h3>Introduction</h3>
+      <p>Thank you for taking part in this survey. You are being invited to participate in a research study that aims to understand how people make decisions when faced with different options that vary across several characteristics.</p>
+      
+      <p>In this survey, you will be asked to complete a series of choice tasks. Each task presents a set of treatment alternatives, and each alternative is described using a number of attributes (features). These attributes may include things like effectiveness, cost, convenience, risks, or other relevant factors. The combinations you see are hypothetical but designed to reflect realistic scenarios.</p>
+
+      <p>Before you go to the survey, you need to wait 1 minute so please use this time to read the introductory text.</p>
+      
+      <h3>Purpose of the study</h3>
+      <p>The goal of this study is to understand which attributes matter most to people, and how they make trade-offs between them. In real-world decision-making, choices often involve balancing benefits and drawbacks. By analyzing the choices you make, we can better understand preferences and support improved decision-making in policy, healthcare, or product design.</p>
+      <p>There are no right or wrong answers—what matters is your personal preference.</p>
+
+      <h3>How to answer the choice tasks</h3>
+      <h4>For each question:</h4>
+
+      <ul>
+	<li>You will see two or more alternatives, each described by the same set of attributes.</li>
+	<li>Carefully read all the information presented for each alternative.</li>
+	<li>Choose the option you prefer the most.</li>
+	<li>If a “None” or “No medicine” alternative is included, you may choose it if you do not prefer any of the presented options.</li>
+      </ul>
+
+      <p>Please consider each choice independently. Even if options look similar across questions, the combinations of attributes may differ.</p>
+
+      <h3>Important reminders</h3>
+      
+      <ul>
+	<li>Base your decisions on your own preferences and judgment.</li>
+	<li>Consider all attributes shown, not just one.</li>
+	<li>Take your time to understand each choice before selecting your answer.</li>
+      </ul>
+
+      <p>Your responses will remain confidential and will be used for research purposes only.</p>
+
+      <p>Thank you for your participation.</p>
+
+      </p> <button id="exit">Go to survey!</button>
+
+      <script>
+      document.addEventListener("DOMContentLoaded", function() {
+	const btn = document.getElementById("exit");
+
+  	btn.disabled = true;
+
+  	setTimeout(function() {
+	  btn.disabled = false;
+  	}, 60000); // 1 minute = 60000 milliseconds
+
+  	btn.addEventListener("click", function() {
+	
+	  let group = localStorage.getItem("survey_group");
+
+    	  // Randomly assign to A, B, or C
+    	  if (!group) {
+	    const groups = ["A", "B", "C"];
+      	    group = groups[Math.floor(Math.random() * groups.length)];
+      	    localStorage.setItem("survey_group", group);
+    	  }
+
+    	  let userId = localStorage.getItem("user_id");
+
+    	  if (!userId) {
+      	    userId = "ID-" + Math.random().toString(36).substr(2, 9);
+      	    localStorage.setItem("user_id", userId);
+    	  }
+
+    	  let url;
+
+    	  if (group === "A") {
+      	    url = "https://gedavid.limesurvey.net/surveyAdministration/view?surveyid=939268";
+    	  } else if (group === "B") {
+      	    url = "https://gedavid.limesurvey.net/surveyAdministration/view?surveyid=843742";
+    	  } else {
+      	    url = "https://gedavid.limesurvey.net/surveyAdministration/view?surveyid=981253";
+    	  }
+
+    	  window.location.href = url + "?group=" + group + "&id=" + userId;
+
+  });
+});
+</script>
+</body>
+</html>
